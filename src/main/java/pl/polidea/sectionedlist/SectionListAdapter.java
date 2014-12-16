@@ -41,8 +41,6 @@ public class SectionListAdapter extends BaseAdapter implements ListAdapter,
     private int viewTypeCount;
     protected final LayoutInflater inflater;
 
-    private View transparentSectionView;
-
     private OnItemClickListener linkedListener;
 
     public SectionListAdapter(final LayoutInflater inflater,
@@ -204,36 +202,6 @@ public class SectionListAdapter extends BaseAdapter implements ListAdapter,
             return true;
         }
         return linkedAdapter.isEnabled(getLinkedPosition(position));
-    }
-
-    public void makeSectionInvisibleIfFirstInList(final int firstVisibleItem) {
-        final String section = getSectionName(firstVisibleItem);
-        // only make invisible the first section with that name in case there
-        // are more with the same name
-        boolean alreadySetFirstSectionIvisible = false;
-        for (final Entry<View, String> itemView : currentViewSections
-                .entrySet()) {
-            if (itemView.getValue().equals(section)
-                    && !alreadySetFirstSectionIvisible) {
-                itemView.getKey().setVisibility(View.INVISIBLE);
-                alreadySetFirstSectionIvisible = true;
-            } else {
-                itemView.getKey().setVisibility(View.VISIBLE);
-            }
-        }
-        for (final Entry<Integer, String> entry : sectionPositions.entrySet()) {
-            if (entry.getKey() > firstVisibleItem + 1) {
-                break;
-            }
-            setSectionText(entry.getValue(), getTransparentSectionView());
-        }
-    }
-
-    public synchronized View getTransparentSectionView() {
-        if (transparentSectionView == null) {
-            transparentSectionView = createNewSectionView();
-        }
-        return transparentSectionView;
     }
 
     protected void sectionClicked(final String section) {

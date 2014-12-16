@@ -15,8 +15,6 @@ import android.widget.ListView;
  */
 public class SectionListView extends ListView implements OnScrollListener {
 
-    private View transparentView;
-
     public SectionListView(final Context context, final AttributeSet attrs,
             final int defStyle) {
         super(context, attrs, defStyle);
@@ -53,26 +51,13 @@ public class SectionListView extends ListView implements OnScrollListener {
             throw new IllegalStateException(
                     "Section List should have FrameLayout as parent!");
         }
-        if (transparentView != null) {
-            ((FrameLayout) parent).removeView(transparentView);
-        }
-        transparentView = ((SectionListAdapter) adapter)
-                .getTransparentSectionView();
-        final FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
-                LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-        ((FrameLayout) parent).addView(transparentView, lp);
-        if (adapter.isEmpty()) {
-            transparentView.setVisibility(View.INVISIBLE);
-        }
+
     }
 
     @Override
     public void onScroll(final AbsListView view, final int firstVisibleItem,
             final int visibleItemCount, final int totalItemCount) {
-        final SectionListAdapter adapter = (SectionListAdapter) getAdapter();
-        if (adapter != null) {
-            adapter.makeSectionInvisibleIfFirstInList(firstVisibleItem);
-        }
+
     }
 
     @Override
