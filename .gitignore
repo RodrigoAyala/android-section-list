@@ -38,3 +38,11 @@ syntax: regexp
 ^AndroidManifest\.xml\.no_apphance$
 syntax: regexp
 ^res/raw/production_build\.txt$
+
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+*.log
